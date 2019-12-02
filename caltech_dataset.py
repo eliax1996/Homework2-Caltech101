@@ -55,6 +55,8 @@ class Caltech(VisionDataset):
             print("error: split must be or train or test")
             sys.exit(1)
 
+        split = split + ".txt"
+
         with open(split,'r') as f:
             line = f.readline()
 
