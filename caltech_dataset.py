@@ -60,6 +60,8 @@ class Caltech(VisionDataset):
                 if re.match('.*BACKGROUND_Google.*',line):
                     continue
 
+                print(line)
+
 
 
         '''
