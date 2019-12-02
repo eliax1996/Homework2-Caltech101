@@ -25,7 +25,7 @@ class Caltech(VisionDataset):
         print("done")
         #self.split = str(self.split) + ".txt"
 
-        with open(split, 'r') as f:
+        with open("train.txt", 'r') as f:
             line = f.readline()
 
             while line:
