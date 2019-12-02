@@ -7,10 +7,9 @@ import os.path
 import sys
 
 
-print('file is correctly loaded')
+ #print('file is correctly loaded')
 
 
-IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
 
 
 def has_file_allowed_extension(filename, extensions):
@@ -35,6 +34,9 @@ def is_image_file(filename):
     Returns:
         bool: True if the filename ends with a known image extension
     """
+    IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
+
+
     return has_file_allowed_extension(filename, IMG_EXTENSIONS)
 
 
