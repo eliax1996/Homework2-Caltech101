@@ -51,14 +51,14 @@ class Caltech(VisionDataset):
     def __init__(self, root, split='train', transform=None, target_transform=None):
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
-        if split!='train' and split!='test':
+        if self.split!='train' and self.split!='test':
             print("error: split must be or train or test")
             sys.exit(1)
 
-        split = split + ".txt"
-        print(split)
+        self.split = self.split + ".txt"
+        print(self.split)
 
-        with open(split,'r') as f:
+        with open(self.split,'r') as f:
             line = f.readline()
 
             while line:
