@@ -2,40 +2,9 @@ from torchvision.datasets import VisionDataset
 import re
 import os
 from PIL import Image
-
 import os
 import os.path
 import sys
-
-
-# print('file is correctly loaded')
-
-
-def has_file_allowed_extension(filename, extensions):
-    """Checks if a file is an allowed extension.
-
-    Args:
-        filename (string): path to a file
-        extensions (tuple of strings): extensions to consider (lowercase)
-
-    Returns:
-        bool: True if the filename ends with one of given extensions
-    """
-    return filename.lower().endswith(extensions)
-
-
-def is_image_file(filename):
-    """Checks if a file is an allowed image extension.
-
-    Args:
-        filename (string): path to a file
-
-    Returns:
-        bool: True if the filename ends with a known image extension
-    """
-    IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
-
-    return has_file_allowed_extension(filename, IMG_EXTENSIONS)
 
 
 def pil_loader(path):
@@ -56,8 +25,7 @@ class Caltech(VisionDataset):
         print("done")
         #self.split = str(self.split) + ".txt"
 
-        '''
-        with open(self.split, 'r') as f:
+        with open(split, 'r') as f:
             line = f.readline()
 
             while line:
@@ -66,8 +34,6 @@ class Caltech(VisionDataset):
 
                 print(line)
                 
-        '''
-
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
         - If the RAM size allows it, it is faster to store all data in memory
