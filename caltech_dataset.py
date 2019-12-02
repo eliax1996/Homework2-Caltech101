@@ -1,10 +1,41 @@
 from torchvision.datasets import VisionDataset
-
+import re
 from PIL import Image
 
 import os
 import os.path
 import sys
+
+
+print('file is correctly loaded')
+
+
+IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
+
+
+def has_file_allowed_extension(filename, extensions):
+    """Checks if a file is an allowed extension.
+
+    Args:
+        filename (string): path to a file
+        extensions (tuple of strings): extensions to consider (lowercase)
+
+    Returns:
+        bool: True if the filename ends with one of given extensions
+    """
+    return filename.lower().endswith(extensions)
+
+
+def is_image_file(filename):
+    """Checks if a file is an allowed image extension.
+
+    Args:
+        filename (string): path to a file
+
+    Returns:
+        bool: True if the filename ends with a known image extension
+    """
+    return has_file_allowed_extension(filename, IMG_EXTENSIONS)
 
 
 def pil_loader(path):
@@ -18,8 +49,18 @@ class Caltech(VisionDataset):
     def __init__(self, root, split='train', transform=None, target_transform=None):
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
-        self.split = split # This defines the split you are going to use
-                           # (split files are called 'train.txt' and 'test.txt')
+        if split!='train' and split!='test':
+            print("error: split must be or train or test")
+            sys.exit(1)
+
+        with open(split,'r') as f:
+            line = f.readline()
+
+            while line:
+                if re.match('.*BACKGROUND_Google.*',line):
+                    continue
+
+
 
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
