@@ -7,9 +7,7 @@ import os.path
 import sys
 
 
- #print('file is correctly loaded')
-
-
+# print('file is correctly loaded')
 
 
 def has_file_allowed_extension(filename, extensions):
@@ -36,7 +34,6 @@ def is_image_file(filename):
     """
     IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
 
-
     return has_file_allowed_extension(filename, IMG_EXTENSIONS)
 
 
@@ -51,23 +48,21 @@ class Caltech(VisionDataset):
     def __init__(self, root, split='train', transform=None, target_transform=None):
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
-        if self.split!='train' and self.split!='test':
+        if self.split != "train" and self.split != "test":
             print("error: split must be or train or test")
             sys.exit(1)
 
         self.split = self.split + ".txt"
         print(self.split)
 
-        with open(self.split,'r') as f:
+        with open(self.split, 'r') as f:
             line = f.readline()
 
             while line:
-                if re.match('.*BACKGROUND_Google.*',line):
+                if re.match('.*BACKGROUND_Google.*', line):
                     continue
 
                 print(line)
-
-
 
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
@@ -88,9 +83,9 @@ class Caltech(VisionDataset):
             tuple: (sample, target) where target is class_index of the target class.
         '''
 
-        image, label = ... # Provide a way to access image and label via index
-                           # Image should be a PIL Image
-                           # label can be int
+        image, label = ...  # Provide a way to access image and label via index
+        # Image should be a PIL Image
+        # label can be int
 
         # Applies preprocessing when accessing the image
         if self.transform is not None:
@@ -103,5 +98,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = ... # Provide a way to get the length (number of elements) of the dataset
+        length = ...  # Provide a way to get the length (number of elements) of the dataset
         return length
