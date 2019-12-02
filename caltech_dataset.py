@@ -54,7 +54,7 @@ class Caltech(VisionDataset):
             sys.exit(1)
 
         self.split = os.path.dirname(os.path.abspath(__file__)) + self.split + ".txt"
-        print(str(self.split))
+        #print(str(self.split))
 
         with open(self.split, 'r') as f:
             line = f.readline()
