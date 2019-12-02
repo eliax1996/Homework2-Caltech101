@@ -15,12 +15,12 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
-    def __init__(self, root, split="train", transform=None, target_transform=None):
+    def __init__(self, root,transform=None, target_transform=None): #  split="train",
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
-        if split != "train" and split != "test":
-            print("error: split must be or train or test")
-            sys.exit(1)
+        #if split != "train" and split != "test":
+        #    print("error: split must be or train or test")
+        #    sys.exit(1)
 
         print("done")
         #self.split = str(self.split) + ".txt"
