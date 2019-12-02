@@ -1,5 +1,6 @@
 from torchvision.datasets import VisionDataset
 import re
+import os
 from PIL import Image
 
 import os
@@ -52,7 +53,7 @@ class Caltech(VisionDataset):
             print("error: split must be or train or test")
             sys.exit(1)
 
-        self.split = self.split + ".txt"
+        self.split = os.path.dirname(os.path.abspath(__file__)) + self.split + ".txt"
         print(str(self.split))
 
         with open(self.split, 'r') as f:
