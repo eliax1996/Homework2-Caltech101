@@ -33,7 +33,7 @@ class Caltech(VisionDataset):
                     continue
 
                 print(line)
-                
+
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
         - If the RAM size allows it, it is faster to store all data in memory
@@ -58,8 +58,11 @@ class Caltech(VisionDataset):
         # label can be int
 
         # Applies preprocessing when accessing the image
-        if self.transform is not None:
-            image = self.transform(image)
+        #if self.transform is not None:
+        #    image = self.transform(image)
+
+        image = 'aa'
+        label = 'bb'
 
         return image, label
 
@@ -68,5 +71,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        #length = ...  # Provide a way to get the length (number of elements) of the dataset
+        length = 0
         return length
