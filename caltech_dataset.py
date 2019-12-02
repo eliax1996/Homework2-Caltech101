@@ -47,13 +47,14 @@ def pil_loader(path):
 
 class Caltech(VisionDataset):
     def __init__(self, root, split="train", transform=None, target_transform=None):
+        split = str(split)
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
         if self.split != "train" and self.split != "test":
             print("error: split must be or train or test")
             sys.exit(1)
 
-        self.split = os.path.dirname(os.path.abspath(__file__)) + self.split + ".txt"
+        self.split = str(os.path.dirname(os.path.abspath(__file__))) + str(self.split) + ".txt"
         #print(str(self.split))
 
         with open(self.split, 'r') as f:
@@ -84,7 +85,7 @@ class Caltech(VisionDataset):
             tuple: (sample, target) where target is class_index of the target class.
         '''
 
-        image, label = ...  # Provide a way to access image and label via index
+        #image, label = ...  # Provide a way to access image and label via index
         # Image should be a PIL Image
         # label can be int
 
@@ -99,5 +100,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = ...  # Provide a way to get the length (number of elements) of the dataset
+        #length = ...  # Provide a way to get the length (number of elements) of the dataset
         return length
