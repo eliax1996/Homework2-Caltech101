@@ -55,8 +55,8 @@ class Caltech(VisionDataset):
             sys.exit(1)
 
         self.split = str(os.path.dirname(os.path.abspath(__file__))) + str(self.split) + ".txt"
-        #print(str(self.split))
 
+        '''
         with open(self.split, 'r') as f:
             line = f.readline()
 
@@ -65,6 +65,8 @@ class Caltech(VisionDataset):
                     continue
 
                 print(line)
+                
+        '''
 
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
