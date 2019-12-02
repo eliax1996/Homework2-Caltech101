@@ -53,7 +53,7 @@ class Caltech(VisionDataset):
             sys.exit(1)
 
         self.split = self.split + ".txt"
-        print(self.split)
+        print(str(self.split))
 
         with open(self.split, 'r') as f:
             line = f.readline()
