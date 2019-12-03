@@ -17,6 +17,7 @@ def pil_loader(path):
 
 class Caltech(VisionDataset):
     images = []
+    set_categories = set()
     transform = None
 
     def __init__(self, root,transform=None,split="train", target_transform=None): #
@@ -37,7 +38,8 @@ class Caltech(VisionDataset):
                     continue
 
                 data = ["./Homework2_Caltech101/101_ObjectCategories/" + line.strip()]
-                data.append(line.split("/")[0])
+                self.set_categories.add(line.split("/")[0])
+                data.append(list(self.set_categories).index(line.split("/")[0]))
 
                 try:
                     image_loaded = pil_loader(data[0])
@@ -47,6 +49,7 @@ class Caltech(VisionDataset):
                     print("ram finisced")
 
                 self.images.append(data)
+        print(data)
 
     def __getitem__(self, index):
         '''
