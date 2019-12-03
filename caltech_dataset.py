@@ -51,6 +51,10 @@ class Caltech(VisionDataset):
                 self.images.append(data)
         print(data)
 
+
+    def get_category_of_image(self, index):
+        return self.images[index][1]
+
     def __getitem__(self, index):
         '''
         __getitem__ should access an element through its index
