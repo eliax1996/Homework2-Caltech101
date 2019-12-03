@@ -15,33 +15,34 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
-    def __init__(self, root,transform=None, target_transform=None): #  split="train",
+    images = []
+
+    def __init__(self, root,transform=None,split="train", target_transform=None): #
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
-        #if split != "train" and split != "test":
-        #    print("error: split must be or train or test")
-        #    sys.exit(1)
+        if split != "train" and split != "test":
+            print("error: split must be or train or test")
+            sys.exit(1)
 
-        print("done")
-        #self.split = str(self.split) + ".txt"
+        self.split = "Homework2_Caltech101/" + str(split) + ".txt"
 
-        with open("train.txt", 'r') as f:
+        with open(self.split, 'r') as f:
             line = f.readline()
 
-            while line:
+            for line in f:
                 if re.match('.*BACKGROUND_Google.*', line):
                     continue
 
-                print(line)
+                data = ["./Homework2_Caltech101/101_ObjectCategories/" + line.strip()]
+                data.append(line.split("/")[0])
 
-        '''
-        - Here you should implement the logic for reading the splits files and accessing elements
-        - If the RAM size allows it, it is faster to store all data in memory
-        - PyTorch Dataset classes use indexes to read elements
-        - You should provide a way for the __getitem__ method to access the image-label pair
-          through the index
-        - Labels should start from 0, so for Caltech you will have lables 0...100 (excluding the background class) 
-        '''
+                try:
+                    image_loaded = pil_loader(data[0])
+                    data[0] = image_loaded
+                except:
+                    print("ram finisced")
+
+                self.images.append(data)
 
     def __getitem__(self, index):
         '''
@@ -61,8 +62,10 @@ class Caltech(VisionDataset):
         #if self.transform is not None:
         #    image = self.transform(image)
 
-        image = 'aa'
-        label = 'bb'
+        image,label = self.images[index]
+
+        if not isinstance(image,Image.Image):
+            image = pil_loader(image)
 
         return image, label
 
@@ -71,5 +74,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = 0
+        length = len(self.images)
         return length
