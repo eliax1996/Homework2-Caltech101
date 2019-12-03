@@ -45,8 +45,8 @@ class Caltech(VisionDataset):
                     image_loaded = pil_loader(data[0])
                     data[0] = image_loaded
                     data[0] = self.transform(data[0])
-                except:
-                    print("ram finisced")
+                except Exception as e:
+                    print(e)
 
                 self.images.append(data)
         print(data)
