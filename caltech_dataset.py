@@ -16,9 +16,11 @@ def pil_loader(path):
 
 class Caltech(VisionDataset):
     images = []
+    transform = None
 
     def __init__(self, root,transform=None,split="train", target_transform=None): #
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
+        self.transform = transform
 
         if split != "train" and split != "test":
             print("error: split must be or train or test")
@@ -39,6 +41,8 @@ class Caltech(VisionDataset):
                 try:
                     image_loaded = pil_loader(data[0])
                     data[0] = image_loaded
+                    data[0] = self.transform(data[0])
+                    print(data[0])
                 except:
                     print("ram finisced")
 
@@ -66,6 +70,7 @@ class Caltech(VisionDataset):
 
         if not isinstance(image,Image.Image):
             image = pil_loader(image)
+            image = self.transform(image)
 
         return image, label
 
