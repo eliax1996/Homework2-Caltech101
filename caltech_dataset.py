@@ -5,6 +5,7 @@ from PIL import Image
 import os
 import os.path
 import sys
+import torch
 
 
 def pil_loader(path):
@@ -42,7 +43,6 @@ class Caltech(VisionDataset):
                     image_loaded = pil_loader(data[0])
                     data[0] = image_loaded
                     data[0] = self.transform(data[0])
-                    print(data[0])
                 except:
                     print("ram finisced")
 
@@ -68,7 +68,7 @@ class Caltech(VisionDataset):
 
         image,label = self.images[index]
 
-        if not isinstance(image,Image.Image):
+        if not isinstance(image,torch.Tensor):
             image = pil_loader(image)
             image = self.transform(image)
 
