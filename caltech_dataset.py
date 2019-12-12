@@ -46,7 +46,7 @@ class Caltech(VisionDataset):
                 self.images.append(data)
 
 
-    def get_category_dictionary(self, index):
+    def get_category_dictionary(self):
         return self.set_categories
 
     def __getitem__(self, index):
