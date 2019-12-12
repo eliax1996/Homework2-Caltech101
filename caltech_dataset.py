@@ -44,8 +44,33 @@ class Caltech(VisionDataset):
                 self.images.append(data)
 
 
-    def get_category_of_image(self, index):
-        return self.images[index][1]
+    def __init__(self, root,transform=None,split="train", target_transform=None,set_cat=None): #
+        super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
+        self.transform = transform
+        self.set_categories = set_cat
+
+        if split != "train" and split != "test":
+            print("error: split must be or train or test")
+            sys.exit(1)
+
+        self.split = "Homework2_Caltech101/" + str(split) + ".txt"
+
+        with open(self.split, 'r') as f:
+            line = f.readline()
+
+            for line in f:
+                if re.match('.*BACKGROUND_Google.*', line):
+                    continue
+
+                data = ["./Homework2_Caltech101/101_ObjectCategories/" + line.strip()]
+                self.set_categories.add(line.split("/")[0])
+                data.append(list(self.set_categories).index(line.split("/")[0]))
+
+                self.images.append(data)
+
+
+    def get_category_dictionary(self, index):
+        return self.set_categories
 
     def __getitem__(self, index):
         '''
