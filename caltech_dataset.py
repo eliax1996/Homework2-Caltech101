@@ -44,7 +44,7 @@ class Caltech(VisionDataset):
                 self.images.append(data)
 
 
-    def __init__(self, root,transform=None,split="train", target_transform=None,set_cat): #
+    def __init__(self, root, set_cat, transform=None,split="train", target_transform=None): #
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
         self.transform = transform
         self.set_categories = list(set_cat)
