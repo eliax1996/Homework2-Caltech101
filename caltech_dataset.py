@@ -41,15 +41,7 @@ class Caltech(VisionDataset):
                 self.set_categories.add(line.split("/")[0])
                 data.append(list(self.set_categories).index(line.split("/")[0]))
 
-                try:
-                    image_loaded = pil_loader(data[0])
-                    data[0] = image_loaded
-                    data[0] = self.transform(data[0])
-                except Exception as e:
-                    print(e)
-
                 self.images.append(data)
-        print(data)
 
 
     def get_category_of_image(self, index):
