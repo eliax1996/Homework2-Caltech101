@@ -6,7 +6,7 @@ import os
 import os.path
 import sys
 import torch
-
+import copy
 
 def pil_loader(path):
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
@@ -44,10 +44,11 @@ class Caltech(VisionDataset):
                 data.append(list(self.set_categories).index(line.split("/")[0]))
 
                 self.images.append(data)
-
+        print(self.images.__len__())
 
     def get_category_dictionary(self):
-        return self.set_categories
+        cat_copied = copy.deepcopy(self.set_categories)
+        return cat_copied
 
     def __getitem__(self, index):
         '''
