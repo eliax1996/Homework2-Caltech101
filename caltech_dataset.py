@@ -47,7 +47,7 @@ class Caltech(VisionDataset):
     def __init__(self, root,transform=None,split="train", target_transform=None,set_cat=None): #
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
         self.transform = transform
-        self.set_categories = set_cat
+        self.set_categories = list(set_cat)
 
         if split != "train" and split != "test":
             print("error: split must be or train or test")
