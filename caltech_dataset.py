@@ -20,34 +20,11 @@ class Caltech(VisionDataset):
     set_categories = set()
     transform = None
 
-    def __init__(self, root,transform=None,split="train", target_transform=None): #
+    def __init__(self, root, transform=None,split="train", target_transform=None,set_cat=None): #
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
         self.transform = transform
-
-        if split != "train" and split != "test":
-            print("error: split must be or train or test")
-            sys.exit(1)
-
-        self.split = "Homework2_Caltech101/" + str(split) + ".txt"
-
-        with open(self.split, 'r') as f:
-            line = f.readline()
-
-            for line in f:
-                if re.match('.*BACKGROUND_Google.*', line):
-                    continue
-
-                data = ["./Homework2_Caltech101/101_ObjectCategories/" + line.strip()]
-                self.set_categories.add(line.split("/")[0])
-                data.append(list(self.set_categories).index(line.split("/")[0]))
-
-                self.images.append(data)
-
-
-    def __init__(self, root, set_cat, transform=None,split="train", target_transform=None): #
-        super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
-        self.transform = transform
-        self.set_categories = list(set_cat)
+        if (set_cat is not None):
+        	self.set_categories = list(set_cat)
 
         if split != "train" and split != "test":
             print("error: split must be or train or test")
