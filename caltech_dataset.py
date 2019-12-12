@@ -16,13 +16,14 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
-    images = []
-    set_categories = set()
-    transform = None
 
     def __init__(self, root, transform=None,split="train", target_transform=None,set_cat=None): #
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
+        
+        self.set_categories = set()
+        self.images = []
         self.transform = transform
+        
         if (set_cat is not None):
         	self.set_categories = set(set_cat)
 
@@ -44,7 +45,6 @@ class Caltech(VisionDataset):
                 data.append(list(self.set_categories).index(line.split("/")[0]))
 
                 self.images.append(data)
-        print(self.images.__len__())
 
     def get_category_dictionary(self):
         cat_copied = copy.deepcopy(self.set_categories)
