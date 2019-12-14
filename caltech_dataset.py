@@ -8,6 +8,7 @@ import sys
 import torch
 import copy
 
+
 def pil_loader(path):
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
     with open(path, 'rb') as f:
@@ -16,39 +17,38 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
+    def __init__(self, root, transform=None, target_transform=None):  #
+        super(Caltech, self).__init__(root,
+                                      transform=transform,
+                                      target_transform=target_transform)
 
-    def __init__(self, root, transform=None,split="train", target_transform=None,set_cat=None): #
-        super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
-        
-        self.set_categories = set()
+        self.list_categories = []
         self.images = []
         self.transform = transform
-        
-        if (set_cat is not None):
-        	self.set_categories = set(set_cat)
 
-        if split != "train" and split != "test":
-            print("error: split must be or train or test")
-            sys.exit(1)
+        list_dir = os.listdir(root)
+        list_dir.pop(list_dir.index('BACKGROUND_Google'))
 
-        self.split = "Homework2_Caltech101/" + str(split) + ".txt"
+        for cat in list_dir:
+            self.list_categories.append(cat.lower().strip())
 
-        with open(self.split, 'r') as f:
-            line = f.readline()
+        self.list_categories = sorted(self.list_categories)
 
-            for line in f:
-                if re.match('.*BACKGROUND_Google.*', line):
-                    continue
+        for cat in list_dir:
+            for image in os.listdir("%s/%s" % (root,cat)):
+                image_location = ("%s/%s/%s" % (root,cat,image))
+                category_index = self.list_categories.index(cat.lower().strip())
+                self.images.append([image_location,category_index])
 
-                data = ["./Homework2_Caltech101/101_ObjectCategories/" + line.strip()]
-                self.set_categories.add(line.split("/")[0])
-                data.append(list(self.set_categories).index(line.split("/")[0]))
+        print(self.images.__len__())
+        print(self.list_categories.__len__())
 
-                self.images.append(data)
-
-    def get_category_dictionary(self):
-        cat_copied = copy.deepcopy(self.set_categories)
+    def get_category_list(self):
+        cat_copied = copy.deepcopy(self.list_categories)
         return cat_copied
+
+    def get_cagetory_image(self, index):
+        return self.list_categories[self.images[index][1]]
 
     def __getitem__(self, index):
         '''
@@ -68,11 +68,10 @@ class Caltech(VisionDataset):
         #if self.transform is not None:
         #    image = self.transform(image)
 
-        image,label = self.images[index]
+        image, label = self.images[index]
 
-        if not isinstance(image,torch.Tensor):
-            image = pil_loader(image)
-            image = self.transform(image)
+        image = pil_loader(image)
+        image = self.transform(image)
 
         return image, label
 
