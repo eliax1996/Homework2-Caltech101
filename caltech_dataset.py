@@ -40,9 +40,6 @@ class Caltech(VisionDataset):
                 category_index = self.list_categories.index(cat.lower().strip())
                 self.images.append([image_location,category_index])
 
-        print(self.images.__len__())
-        print(self.list_categories.__len__())
-
     def get_category_list(self):
         cat_copied = copy.deepcopy(self.list_categories)
         return cat_copied
@@ -71,7 +68,8 @@ class Caltech(VisionDataset):
         image, label = self.images[index]
 
         image = pil_loader(image)
-        image = self.transform(image)
+        if self.transform is not None:
+            image = self.transform(image)
 
         return image, label
 
